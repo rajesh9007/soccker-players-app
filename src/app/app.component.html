@@ -1,0 +1,239 @@
+<div *ngIf="players" class="w-screen flex items-center justify-center flex-col">
+  <h2 class="text-2xl font-bold">Player Management</h2>
+  <form (ngSubmit)="addPlayer()" class="mt-4 w-full max-w-xl">
+    <div class="flex flex-col gap-4">
+      <label class="text-xs font-semibold text-gray-600">Player Name:</label>
+      <input
+        [(ngModel)]="newPlayer.playerName"
+        name="playerName"
+        id="playerName"
+        placeholder="Player Name"
+        required
+        class="text-sm font-bold text-gray-900"
+      />
+
+      <label class="text-xs font-semibold text-gray-600">Position:</label>
+      <input
+        [(ngModel)]="newPlayer.position"
+        name="position"
+        id="position"
+        placeholder="Position"
+        required
+        class="text-sm font-bold text-gray-900"
+      />
+
+      <label class="text-xs font-semibold text-gray-600">Goals Scored:</label>
+      <input
+        [(ngModel)]="newPlayer.goalsScored"
+        name="goalsScored"
+        id="goalsScored"
+        type="number"
+        placeholder="Goals Scored"
+        required
+        class="text-sm font-bold text-gray-900"
+      />
+
+      <label class="text-xs font-semibold text-gray-600">Assists:</label>
+      <input
+        [(ngModel)]="newPlayer.assists"
+        name="assists"
+        id="assists"
+        type="number"
+        placeholder="Assists"
+        required
+        class="text-sm font-bold text-gray-900"
+      />
+
+      <label class="text-xs font-semibold text-gray-600">Yellow Cards:</label>
+      <input
+        [(ngModel)]="newPlayer.yellowCards"
+        name="yellowCards"
+        id="yellowCards"
+        type="number"
+        placeholder="Yellow Cards"
+        required
+        class="text-sm font-bold text-gray-900"
+      />
+
+      <label class="text-xs font-semibold text-gray-600">Red Cards:</label>
+      <input
+        [(ngModel)]="newPlayer.redCards"
+        name="redCards"
+        id="redCards"
+        type="number"
+        placeholder="Red Cards"
+        required
+        class="text-sm font-bold text-gray-900"
+      />
+
+      <label class="text-xs font-semibold text-gray-600">Minutes Played:</label>
+      <input
+        [(ngModel)]="newPlayer.minutesPlayed"
+        name="minutesPlayed"
+        id="minutesPlayed"
+        type="number"
+        placeholder="Minutes Played"
+        required
+        class="text-sm font-bold text-gray-900"
+      />
+
+      <button
+        type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      >
+        Add Player
+      </button>
+    </div>
+    
+
+
+
+  </form>
+
+  <!-- 
+export interface Player {
+  _id?: string;
+  playerName: string;
+  position: string;
+  goalsScored: number;
+  assists: number;
+  yellowCards: number;
+  redCards: number;
+  minutesPlayed: number;
+}
+
+
+   -->
+
+  <ul
+    class="mt-8 w-full max-w-xl border border-gray-300 divide-y divide-gray-300 rounded-md shadow-md bg-white"
+  >
+    <li
+      *ngFor="let player of players"
+      class="flex flex-col items-start justify-between p-4 hover:bg-gray-50 transition duration-300 ease-in-out"
+    >
+      <div class="flex flex-col gap-2 text-sm font-bold text-gray-700">
+        <ng-container *ngIf="selectedPlayer === player">
+          <label class="text-xs font-semibold text-gray-600">Player Name: </label>
+          <input
+            [(ngModel)]="player.playerName"
+            name="playerName"
+            id="playerName"
+            placeholder="Player Name"
+            required
+            class="text-sm font-bold text-gray-900"
+          />
+          <label class="text-xs font-semibold text-gray-600">Position:</label>
+          <input
+            [(ngModel)]="player.position"
+            name="name"
+            id="name"
+            placeholder="Name"
+            required
+            class="text-sm font-bold text-gray-900"
+          />
+          <label class="text-xs font-semibold text-gray-600">Goals Scored:</label>
+          <input
+            [(ngModel)]="player.goalsScored"
+            name="goalsScored"
+            id="goalsScored"
+            type="number"
+            placeholder="Goals Scored"
+            required
+            class="text-sm font-bold text-gray-900"
+          />
+
+          <label class="text-xs font-semibold text-gray-600">Assists:</label>
+          <input
+            [(ngModel)]="player.assists"
+            name="assists"
+            id="assists"
+            type="number"
+            placeholder="Assists"
+            required
+            class="text-sm font-bold text-gray-900"
+          />
+          <label class="text-xs font-semibold text-gray-600">Yellow Cards:</label>
+          <input
+            [(ngModel)]="player.yellowCards"
+            name="yellowCards"
+            id="yellowCards"
+            type="number"
+            placeholder="Yellow Cards"
+            required
+            class="text-sm font-bold text-gray-900"
+          />
+          <label class="text-xs font-semibold text-gray-600">Red Cards:</label>
+          <input
+            [(ngModel)]="player.redCards"
+            name="redCards"
+            id="redCards"
+            type="number"
+            placeholder="Red Cards"
+            required
+            class="text-sm font-bold text-gray-900"
+          />
+
+          <label class="text-xs font-semibold text-gray-600">Minutes Played:</label>
+          <input
+            [(ngModel)]="player.minutesPlayed"
+            name="minutesPlayed"
+            id="minutesPlayed"
+            type="number"
+            placeholder="Minutes Played"
+            required
+            class="text-sm font-bold text-gray-900"
+          />
+          <div
+            class="flex flex-row items-center justify-center space-x-4 md:space-x-6 mt-4"
+          >
+            <button
+              (click)="selectedPlayer = null"
+              class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              cancel
+            </button>
+            <button
+              (click)="updatePlayer(player)"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Update
+            </button>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="selectedPlayer !== player">
+          <label class="text-xs font-semibold text-gray-600">Player Name: </label>
+          <span class="text-sm font-bold text-gray-900">{{ player.playerName }}</span>
+          <label class="text-xs font-semibold text-gray-600">Position:</label>
+          <span class="text-sm font-bold text-gray-900">{{ player.position }}</span>
+          <label class="text-xs font-semibold text-gray-600">Goals Scored:</label>
+          <span class="text-sm font-bold text-gray-900">{{ player.goalsScored }}</span>
+          <label class="text-xs font-semibold text-gray-600">Assists:</label>
+          <span class="text-sm font-bold text-gray-900">{{ player.assists }}</span>
+          <label class="text-xs font-semibold text-gray-600">Yellow Cards:</label>
+          <span class="text-sm font-bold text-gray-900">{{ player.yellowCards }}</span>
+          <label class="text-xs font-semibold text-gray-600">Red Cards:</label>
+          <span class="text-sm font-bold text-gray-900">{{ player.redCards }}</span>
+          <label class="text-xs font-semibold text-gray-600">Minutes Played:</label>
+          <span class="text-sm font-bold text-gray-900">{{ player.minutesPlayed }}</span>
+          <div
+            class="flex flex-row items-center justify-center space-x-4 md:space-x-6 mt-4"
+          >
+            <button
+              (click)="selectedPlayer = player"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Update
+            </button>
+            <button
+              (click)="deletePlayer(player._id!)"
+              class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Delete
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </li>
+  </ul>
+</div>
